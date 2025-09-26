@@ -2365,9 +2365,21 @@ for i, v in ipairs(DropdownFunc.Value) do
     end
 end
 
+local displayValues = {}
+local count = 0
+
+for _, v in ipairs(DropdownFunc.Value) do
+    if v ~= "" then -- bỏ qua item rỗng
+        count = count + 1
+        if count <= 3 then
+            table.insert(displayValues, v)
+        end
+    end
+end
+
 local DropdownValueTable = table.concat(displayValues, ", ")
-if #DropdownFunc.Value > 3 then
-    DropdownValueTable = DropdownValueTable .. " +" .. tostring(#DropdownFunc.Value - 3)
+if count > 3 then
+    DropdownValueTable = DropdownValueTable .. " +" .. tostring(count - 3)
 end
 
 if DropdownValueTable == "" then
